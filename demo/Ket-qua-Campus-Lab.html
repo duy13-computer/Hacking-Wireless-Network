@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Campus-Lab · Kết quả phân tích Wi-Fi</title>
+<style>
+:root{--ink:#142f36;--muted:#506468;--line:#d2dedb;--green:#006a56;--paper:#f4f7f5;--dark:#0e3839;--cream:#fff4d9}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.52 "Inter","Segoe UI",Arial,sans-serif}a{color:var(--green)}
+.wrap{max-width:1330px;margin:0 auto;padding-inline:clamp(18px,4vw,58px)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #097f9e;outline-offset:3px}
+.skip{position:absolute;top:-80px;left:1rem;padding:.7rem;background:white;z-index:4}.skip:focus{top:5px}
+.mast{background:#0e3435;color:#fff;position:relative;overflow:hidden;border-bottom:4px solid #8fd5ad}
+.mast:after{content:"";pointer-events:none;position:absolute;right:-175px;bottom:-470px;width:760px;height:760px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 49px,rgba(163,220,193,.105) 50px 51px,transparent 52px 83px)}
+.mast .wrap{position:relative;z-index:1}.masttop{display:flex;align-items:center;justify-content:space-between;padding-top:23px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:720;font-size:20px;letter-spacing:-.6px}.logo{display:flex;align-items:flex-end;gap:3px;width:27px;height:23px}.logo i{width:6px;background:#a9e5c4;transform:skewY(-13deg);border-radius:1px}.logo i:nth-child(1){height:8px}.logo i:nth-child(2){height:15px}.logo i:nth-child(3){height:22px}
+.print, .pager button{font:inherit;cursor:pointer;border-radius:6px;line-height:1.4;padding:8px 15px;font-size:14px;font-weight:650}.print{border:1px solid #6f9891;color:white;background:#174847}
+.print:hover{background:#24605a}h1{margin:19px 0 4px;letter-spacing:-.045em;font-size:clamp(34px,4.3vw,60px);line-height:1.17;font-weight:680}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 15px;margin:10px 0 0;padding:0 0 25px;color:#d6e9e2;font-size:14px}.meta span:first-child:before{content:"";display:inline-block;border-radius:50%;background:#a0e5bc;height:8px;width:8px;margin-right:8px}.meta code{color:#eef9f4}
+code,pre,.index,.eyebrow{font-family:"IBM Plex Mono","Cascadia Code",Consolas,monospace}code{font-size:.93em}
+.layout{display:grid;grid-template-columns:224px minmax(0,1fr);gap:clamp(20px,3vw,46px);align-items:start;padding-top:27px}
+nav{position:sticky;top:14px}nav h2{font-size:14px;color:var(--muted);font-weight:600;margin:3px 0 11px}
+nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:6px;color:#354a4c;text-decoration:none;font-weight:600;line-height:1.4;margin-bottom:3px}
+nav a:hover{background:#e6efea}nav a[aria-current="step"]{background:#d7ebe0;color:#084d3a;box-shadow:inset 3px 0 #17775c}
+.index{font-size:12px;color:#4a635c;font-weight:600}main{min-width:0}h2,h3,p{margin:0}
+.step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:clamp(19px,2.5vw,35px);margin-bottom:14px;scroll-margin:12px}
+.eyebrow{font-size:12px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.stephead h2{font-size:clamp(27px,3vw,43px);letter-spacing:-.04em;line-height:1.17;margin:5px 0 7px}
+.stephead p,.session p,.profile p{color:var(--muted)}.stephead{margin-bottom:20px}
+.finding{border-left:3px solid #8ab89d;padding:5px 12px;margin-top:16px;font-size:14px;color:#425952}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 21px;background:#eef5f0;border-radius:7px;padding:15px 1px}
+.metrics div{display:flex;flex-direction:column-reverse;padding:0 clamp(10px,2vw,25px);border-right:1px solid #cadbd1}.metrics div:last-child{border:0}
+.metrics dd{margin:0;font-size:clamp(27px,3vw,42px);color:#174f3f;font-weight:650;line-height:1.05;font-variant-numeric:tabular-nums}.metrics dt{margin-top:6px;font-size:14px;color:#3a594c;line-height:1.25}
+.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:15px;text-align:left}th{background:#f2f5f3;color:var(--muted);font-size:13px;font-weight:650;padding:9px 11px}td{padding:13px 11px;border-bottom:1px solid #e0e8e3;vertical-align:middle;overflow-wrap:anywhere}td code{white-space:nowrap}td:has(.signal){white-space:nowrap}
+.tag{display:inline-block;font-size:13px;font-weight:650;line-height:1.4;padding:3px 8px;border-radius:4px;background:#edf1ef;color:#365157}
+.amber{background:#fff0cb;color:#77460b}.teal{background:#dff2e7;color:#11533b}.blue{background:#e5eef7;color:#234d73}
+.signal{display:inline-flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}.signal meter{width:42px;height:9px;background:#dce6e2;border:0;border-radius:9px}
+meter::-webkit-meter-bar{background:#dce6e2;border:0}meter::-webkit-meter-optimum-value{background:#347967;border-radius:9px}meter::-moz-meter-bar{background:#347967}
+.session,.profile{padding:16px 18px;border:1px solid var(--line);border-radius:7px}.session+.session{margin-top:12px}.sessionhead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.session h3,.profile h3{font-size:19px;letter-spacing:-.02em}.sessionhead>span:not(.tag){font-size:14px;color:#445e57}.session p,.profile p{font-size:15px;margin-top:7px}
+.sequence,.times{display:flex;gap:14px 18px;margin:12px 0 8px;list-style:none;padding:0;flex-wrap:wrap;align-items:center}
+.sequence li{position:relative;background:#e0f0e7;border:1px solid #a8cdb8;border-radius:5px;color:#134d38;padding:6px 13px;font-family:Consolas,monospace;font-weight:700}
+.sequence li+li:before{content:"›";position:absolute;left:-13px;color:#6c8077}.sequence .repeat{background:#fff0cb;border-color:#d9b778;color:#72450e}
+.times{gap:5px}.times li{display:flex;flex-direction:column;border-left:2px solid #85ad9e;background:#f1f6f2;padding:5px 12px}.times code{font-size:12px;color:var(--muted)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:13px}.profile{background:#fafcfb}.profile h3{margin-bottom:12px}
+details{margin-top:20px;border-top:1px solid var(--line);padding-top:12px}summary{cursor:pointer;width:fit-content;color:var(--green);font-size:14px;font-weight:650}pre{color:#e4f3ea;background:#112e32;padding:16px 18px;border-radius:6px;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;margin-bottom:0}pre b{color:#a9e5c4}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:5px}.pager output{color:var(--muted);font-size:14px}.pager button{border:1px solid #b8cbc1;background:white;color:#19443a}.pager button:last-child{background:#125848;color:white;border-color:#125848}.pager button:disabled{background:#e6ece8;color:#697974;border-color:#d6dfd9;cursor:default}
+footer{margin:26px auto 0;padding-bottom:20px;color:#52665c;font-size:12px}button[hidden], [hidden]{display:none}
+@media(max-width:900px){.layout{grid-template-columns:175px minmax(0,1fr);gap:17px}.wrap{padding-inline:18px}nav a{gap:8px;padding:9px}td,th{padding:9px 7px}.signal meter{display:none}}
+@media(max-width:700px){.layout{display:block;padding-top:12px}nav{position:static}nav h2{margin:0 0 4px}nav div{display:flex;gap:4px;overflow-x:auto;padding:1px 0 7px;margin:0 0 10px}nav a{flex:none;font-size:14px;border:1px solid var(--line)}.index{font-size:11px}.masttop{padding-top:14px}.meta{padding-bottom:17px;font-size:12px}.step{padding:16px 12px}.pair{grid-template-columns:1fr}.tablewrap table{min-width:490px}.stephead{margin-bottom:14px}.metrics dt{font-size:12px}}
+@media print{@page{size:A4;margin:1.5cm}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}body{background:white;color:black;font-size:11pt}.mast{background:white;color:#142f36;border-bottom:1px solid #688379}.mast:after,.logo,nav,.pager,.print,.skip{display:none!important}.wrap{padding:0;max-width:none}.masttop{padding:0}.meta,.meta code{color:#405650}.meta{padding-bottom:10px}.layout{display:block}.step,.step[hidden]{display:block!important;break-inside:auto;border:0;padding:10px 0;margin:0;border-radius:0}.step+.step{break-before:page}.stephead h2{font-size:25pt}.tablewrap{overflow:visible}.tablewrap table{min-width:0}.metrics,.session,.profile,tr{break-inside:avoid}details{display:none}footer{font-size:9pt}}
+</style></head>
+<body><a class="skip" href="#noi-dung">Đến nội dung</a>
+<header class="mast"><div class="wrap"><div class="masttop"><div class="brand"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>Campus-Lab</div>
+<button class="print" type="button" id="print" hidden>In báo cáo</button></div>
+<h1>Kết quả phân tích Wi-Fi</h1><p class="meta"><span>Dữ liệu mô phỏng · Ngoại tuyến</span><span>Nguồn <code>data/lab.json</code></span><span>21/11/2026 · 21:15 +0700</span></p>
+</div></header>
+<div class="wrap layout"><nav aria-label="Các bước phân tích"><h2>Nội dung trình diễn</h2><div><a href="#buoc-1"><span class="index">01</span>Kiểm kê Wi-Fi</a><a href="#buoc-2"><span class="index">02</span>Danh mục AP</a><a href="#buoc-3"><span class="index">03</span>Phiên bắt tay</a><a href="#buoc-4"><span class="index">04</span>Ngắt kết nối</a><a href="#buoc-5"><span class="index">05</span>Đăng ký WPS</a><a href="#buoc-6"><span class="index">06</span>Chính sách WPA2</a><a href="#buoc-7"><span class="index">07</span>Cấu hình AP</a></div></nav>
+<main id="noi-dung" tabindex="-1"><section id="buoc-1" aria-labelledby="t1" class="step"><header class="stephead"><div class="eyebrow">Bước 1 / 7</div><h2 id="t1" tabindex="-1">Kiểm kê Wi-Fi</h2><p>Đối chiếu BSSID, kênh và mức tín hiệu của các điểm phát quan sát được.</p></header><dl class="metrics"><div><dt>BSSID quan sát</dt><dd>3</dd></div><div><dt>Tên mạng xác định</dt><dd>1</dd></div><div><dt>Kênh quan sát</dt><dd>3</dd></div></dl><div class="tablewrap"><table><thead><tr><th scope="col">SSID</th><th scope="col">BSSID</th><th scope="col">Kênh</th><th scope="col">Bảo vệ</th><th scope="col">Tín hiệu</th></tr></thead><tbody><tr><td><strong>Campus-Lab</strong></td><td><code>02:00:00:00:00:01</code></td><td>1</td><td><span class="tag plain">WPA2-PSK</span></td><td><span class="signal"><meter min="-100" max="0" value="-57" aria-label="Tín hiệu"></meter><span>-57 dBm</span></span></td></tr><tr><td><strong>Campus-Lab</strong></td><td><code>02:00:00:00:00:02</code></td><td>6</td><td><span class="tag plain">WPA2-PSK</span></td><td><span class="signal"><meter min="-100" max="0" value="-64" aria-label="Tín hiệu"></meter><span>-64 dBm</span></span></td></tr><tr><td><strong>Campus-Lab</strong></td><td><code>02:00:00:00:00:03</code></td><td>11</td><td><span class="tag amber">Open</span></td><td><span class="signal"><meter min="-100" max="0" value="-43" aria-label="Tín hiệu"></meter><span>-43 dBm</span></span></td></tr></tbody></table></div><details><summary>Xem kết quả terminal</summary><pre><b>$ python wifi_scanner.py</b>
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+SSID | BSSID | Kênh | Bảo vệ quảng bá | Tín hiệu (dBm)
+&#x27;Campus-Lab&#x27; | 02:00:00:00:00:01 | 1 | WPA2-PSK | -57
+&#x27;Campus-Lab&#x27; | 02:00:00:00:00:02 | 6 | WPA2-PSK | -64
+&#x27;Campus-Lab&#x27; | 02:00:00:00:00:03 | 11 | Open | -43
+Số hàng BSS trong mẫu: 3</pre></details></section><section id="buoc-2" aria-labelledby="t2" class="step"><header class="stephead"><div class="eyebrow">Bước 2 / 7</div><h2 id="t2" tabindex="-1">Đối chiếu AP với sổ tài sản</h2><p>Kiểm tra điểm phát nào dùng cùng tên mạng với AP đã đăng ký.</p></header><dl class="metrics"><div><dt>Quan sát</dt><dd>3</dd></div><div><dt>Trong danh mục</dt><dd>2</dd></div><div><dt>Ứng viên trùng tên</dt><dd>1</dd></div></dl><div class="tablewrap"><table><thead><tr><th scope="col">BSSID</th><th scope="col">SSID</th><th scope="col">Đối chiếu</th><th scope="col">Dấu hiệu</th></tr></thead><tbody><tr><td><code>02:00:00:00:00:01</code></td><td>Campus-Lab</td><td>Có trong danh mục.</td><td>—</td></tr><tr><td><code>02:00:00:00:00:02</code></td><td>Campus-Lab</td><td>Có trong danh mục.</td><td>—</td></tr><tr><td><code>02:00:00:00:00:03</code></td><td>Campus-Lab</td><td><span class="tag amber">Cần xác minh</span></td><td>trùng SSID, BSSID ngoài danh mục. Chế độ &#x27;Open&#x27; khác [&#x27;WPA2-PSK&#x27;].</td></tr></tbody></table></div><details><summary>Xem kết quả terminal</summary><pre><b>$ python evil_twin_detector.py</b>
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+02:00:00:00:00:01 | &#x27;Campus-Lab&#x27; | Có trong danh mục.
+02:00:00:00:00:02 | &#x27;Campus-Lab&#x27; | Có trong danh mục.
+02:00:00:00:00:03 | &#x27;Campus-Lab&#x27; | ỨNG VIÊN trùng SSID, BSSID ngoài danh mục. Chế độ &#x27;Open&#x27; khác [&#x27;WPA2-PSK&#x27;].</pre></details></section><section id="buoc-3" aria-labelledby="t3" class="step"><header class="stephead"><div class="eyebrow">Bước 3 / 7</div><h2 id="t3" tabindex="-1">Đọc hai phiên bắt tay</h2><p>Đọc thứ tự M1–M4 của từng phiên. Nhãn lặp được đánh dấu trong chuỗi.</p></header><article class="session"><div class="sessionhead"><h3>Phiên S1</h3><span>Thiếu: không · Lặp: không</span></div><ol class="sequence" aria-label="Thứ tự nhãn"><li>M1</li><li>M2</li><li>M3</li><li>M4</li></ol><p>Đủ bốn nhãn theo thứ tự quan sát.</p></article><article class="session"><div class="sessionhead"><h3>Phiên S2</h3><span>Thiếu: M3 · Lặp: M2 ×2</span></div><ol class="sequence" aria-label="Thứ tự nhãn"><li>M1</li><li>M2</li><li class="repeat">M2</li><li>M4</li></ol><p>Chưa quan sát đủ bốn nhãn.</p></article><p class="finding">Bản ghi mô tả nhãn sự kiện. Xác thực thành công cần nguồn xác nhận độc lập.</p><details><summary>Xem kết quả terminal</summary><pre><b>$ python handshake_review.py</b>
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+S1 | M1 → M2 → M3 → M4
+  Thiếu: không
+  Lặp: không
+  Đủ bốn nhãn theo thứ tự quan sát.
+S2 | M1 → M2 → M2 → M4
+  Thiếu: M3
+  Lặp: M2 ×2
+  Chưa quan sát đủ bốn nhãn.
+Bản ghi mô tả nhãn sự kiện. Xác thực thành công cần nguồn xác nhận độc lập.</pre></details></section><section id="buoc-4" aria-labelledby="t4" class="step"><header class="stephead"><div class="eyebrow">Bước 4 / 7</div><h2 id="t4" tabindex="-1">Tìm cụm ngắt kết nối</h2><p>Cửa sổ trượt 60 giây. Ngưỡng cảnh báo của bài là 5 sự kiện riêng biệt trên cùng BSSID.</p></header><article class="session"><div class="sessionhead"><h3><code>02:00:00:00:00:01</code></h3><span class="tag amber">Đạt ngưỡng cảnh báo</span></div><p><strong>5 sự kiện riêng biệt</strong> · Giây 48–66</p><ol class="times"><li><strong>48 s</strong><code>E01</code></li><li><strong>52 s</strong><code>E02</code></li><li><strong>56 s</strong><code>E03</code></li><li><strong>62 s</strong><code>E04</code></li><li><strong>66 s</strong><code>E05</code></li></ol></article><article class="session"><div class="sessionhead"><h3><code>02:00:00:00:00:02</code></h3><span class="tag plain">Dưới ngưỡng</span></div><p><strong>1 sự kiện riêng biệt</strong> · Giây 52–52</p><ol class="times"><li><strong>52 s</strong><code>E06</code></li></ol></article><p class="finding">Đối chiếu lịch bảo trì, chuyển vùng và PMF để xác minh nguyên nhân.</p><details><summary>Xem kết quả terminal</summary><pre><b>$ python deauth_detector.py</b>
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+02:00:00:00:00:01 | CẢNH BÁO cụm ngắt kết nối | 5 sự kiện | giây 48–66
+02:00:00:00:00:02 | Dưới ngưỡng | 1 sự kiện | giây 52–52
+Đối chiếu lịch bảo trì, chuyển vùng và PMF để xác minh nguyên nhân.</pre></details></section><section id="buoc-5" aria-labelledby="t5" class="step"><header class="stephead"><div class="eyebrow">Bước 5 / 7</div><h2 id="t5" tabindex="-1">Kiểm tra đăng ký bằng WPS</h2><p>Đối chiếu hai hồ sơ với mục tiêu tắt WPS của bài thực hành.</p></header><div class="pair"><article class="profile"><h3>Trước khắc phục</h3><span class="tag amber">KHÔNG ĐẠT</span><p>hồ sơ cho phép đăng ký bằng PIN ngoài.</p></article><article class="profile"><h3>Sau khắc phục</h3><span class="tag teal">ĐẠT</span><p>hồ sơ khai báo đã tắt WPS.</p></article></div><details><summary>Xem kết quả terminal</summary><pre><b>$ python wps_audit.py</b>
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+before | WPS | KHÔNG ĐẠT — hồ sơ cho phép đăng ký bằng PIN ngoài.
+after | WPS | ĐẠT — hồ sơ khai báo đã tắt WPS.
+Kiểm chứng ngoài mô hình cần đối chiếu cấu hình đang chạy tại AP.</pre></details></section><section id="buoc-6" aria-labelledby="t6" class="step"><header class="stephead"><div class="eyebrow">Bước 6 / 7</div><h2 id="t6" tabindex="-1">Chấm chính sách WPA2</h2><p>Tiêu chí của bài là ít nhất 20 ký tự, sinh ngẫu nhiên theo hồ sơ khai báo.</p></header><div class="tablewrap"><table><thead><tr><th scope="col">Hồ sơ</th><th scope="col">Độ dài khai báo</th><th scope="col">Nguồn sinh</th><th scope="col">Theo tiêu chí lab</th></tr></thead><tbody><tr><td>Mẫu 1</td><td>12 ký tự</td><td>Người chọn</td><td><span class="tag amber">KHÔNG ĐẠT</span></td></tr><tr><td>Mẫu 2</td><td>20 ký tự</td><td>Sinh ngẫu nhiên</td><td><span class="tag teal">ĐẠT</span></td></tr></tbody></table></div><details><summary>Xem kết quả terminal</summary><pre><b>$ python defense_check.py --policy</b>
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+Mẫu 1 | 12 ký tự | nguồn human | KHÔNG ĐẠT
+Mẫu 2 | 20 ký tự | nguồn random | ĐẠT
+Tiêu chí minh họa: tối thiểu 20 ký tự và nguồn sinh ngẫu nhiên theo hồ sơ.</pre></details></section><section id="buoc-7" aria-labelledby="t7" class="step"><header class="stephead"><div class="eyebrow">Bước 7 / 7</div><h2 id="t7" tabindex="-1">Đối chiếu cấu hình sau khắc phục</h2><p>So sánh hai bản khai cấu hình trên cùng một tập thuộc tính.</p></header><div class="tablewrap"><table><thead><tr><th scope="col">Thuộc tính</th><th scope="col">Trước khắc phục</th><th scope="col">Sau khắc phục</th><th scope="col">Thay đổi</th></tr></thead><tbody><tr><td>Chế độ Wi-Fi</td><td>WPA2-Personal</td><td><strong>WPA3-Personal</strong></td><td><span class="tag blue">Đã đổi</span></td></tr><tr><td>Bảo vệ khung quản lý (PMF)</td><td>Tùy chọn</td><td><strong>Bắt buộc</strong></td><td><span class="tag blue">Đã đổi</span></td></tr><tr><td>Đăng ký WPS</td><td>Bật PIN</td><td><strong>Tắt</strong></td><td><span class="tag blue">Đã đổi</span></td></tr><tr><td>Thông tin quản trị mặc định</td><td>Chưa xác định</td><td><strong>Đã đổi theo hồ sơ</strong></td><td><span class="tag blue">Đã đổi</span></td></tr><tr><td>Hiển thị SSID</td><td>Quảng bá</td><td><strong>Quảng bá</strong></td><td>Giữ nguyên</td></tr></tbody></table></div><details><summary>Xem kết quả terminal</summary><pre><b>$ python defense_check.py</b>
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+before | hồ sơ khai báo
+  Chế độ WPA2-Personal | chưa đạt mục tiêu WPA3 của lab
+  PMF | tùy chọn
+  WPS | KHÔNG ĐẠT — hồ sơ cho phép đăng ký bằng PIN ngoài.
+  SSID | quảng bá | thông tin hiển thị
+  Thông tin quản trị mặc định | CHƯA XÁC ĐỊNH
+after | hồ sơ khai báo
+  Chế độ WPA3-Personal | đạt mục tiêu lab
+  PMF | bắt buộc
+  WPS | ĐẠT — hồ sơ khai báo đã tắt WPS.
+  SSID | quảng bá | thông tin hiển thị
+  Thông tin quản trị mặc định | đã đổi theo hồ sơ
+Kết luận chỉ áp dụng cho dữ liệu khai báo trong hai hồ sơ.</pre></details></section>
+<div class="pager" id="pager" hidden><button type="button" id="prev">← Bước trước</button><output id="position" aria-live="polite"></output><button type="button" id="next">Bước sau →</button></div>
+</main></div><footer class="wrap">CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP</footer>
+<script>
+(() => {
+  const sections = Array.from(document.querySelectorAll('.step'));
+  const links = Array.from(document.querySelectorAll('nav a'));
+  const get = id => document.getElementById(id);
+  let current = -1;
+  function show() {
+    if (location.hash === '#noi-dung' && current >= 0) return;
+    const requested = sections.findIndex(section => '#' + section.id === location.hash);
+    const index = requested < 0 ? 0 : requested;
+    sections.forEach((section, i) => {
+      section.hidden = i !== index;
+      if (i === index) links[i].setAttribute('aria-current', 'step');
+      else links[i].removeAttribute('aria-current');
+    });
+    get('position').value = (index + 1) + ' / ' + sections.length;
+    get('prev').disabled = index === 0;
+    get('next').disabled = index === sections.length - 1;
+    if (current !== -1 && current !== index) {
+      sections[index].querySelector('h2').focus({preventScroll:true});
+      window.scrollTo(0,0);
+      if (matchMedia('(max-width:700px)').matches) links[index].parentElement.scrollLeft = links[index].offsetLeft - links[0].offsetLeft;
+    }
+    current = index;
+  }
+  function go(by) { if (sections[current+by]) location.hash=sections[current+by].id; }
+  get('prev').addEventListener('click', () => go(-1));
+  get('next').addEventListener('click', () => go(1));
+  document.addEventListener('keydown', event => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key==='ArrowLeft' || event.key==='ArrowRight') {
+      event.preventDefault(); go(event.key==='ArrowRight' ? 1 : -1);
+    }
+  });
+  get('print').hidden=false;
+  get('print').addEventListener('click',()=>window.print());
+  get('pager').hidden=sections.length<2;
+  window.addEventListener('hashchange',show);
+  show();
+})();
+</script></body></html>

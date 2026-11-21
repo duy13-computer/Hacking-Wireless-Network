@@ -32,9 +32,18 @@ def main():
     parser.add_argument("--auto", action="store_true", help="Chạy liên tục, bỏ qua khoảng dừng giữa các bước.")
     parser.add_argument("--buoc", type=int, choices=range(1, len(STEPS) + 1), metavar="1–7",
                         help="Chỉ trình bày bước được chọn, từ 1 đến 7.")
+    parser.add_argument("--html", action="store_true", help="Xuất báo cáo trực quan và mở trong trình duyệt khi chạy tương tác.")
     args = parser.parse_args()
     demo_dir = Path(__file__).resolve().parent
     banner()
+    if args.html:
+        from bao_cao_html import export_report
+        page = export_report(demo_dir, STEPS, args.buoc)
+        print(f"Đã lưu báo cáo: {page}")
+        if sys.stdout.isatty():
+            import webbrowser
+            webbrowser.open(page.as_uri())
+        return 0
     print("Campus-Lab | Dữ liệu mẫu trong thư mục data/", flush=True)
     for number, (title, command, note) in enumerate(STEPS, start=1):
         if args.buoc is not None and number != args.buoc:
@@ -58,6 +67,6 @@ if __name__ == "__main__":
     except (KeyboardInterrupt, EOFError):
         print("\nĐã dừng trình diễn.", file=sys.stderr)
         sys.exit(130)
-    except (OSError, subprocess.CalledProcessError) as exc:
+    except (OSError, ValueError, subprocess.CalledProcessError) as exc:
         print(f"Không chạy được bước hiện tại: {exc}", file=sys.stderr)
         sys.exit(2)

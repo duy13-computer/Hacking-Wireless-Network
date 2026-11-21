@@ -2,6 +2,10 @@
 
 **CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP**
 
+**Xem kết quả trong trình duyệt.** Mở [bản trình chiếu Campus-Lab](Ket-qua-Campus-Lab.html). Dùng phím **← →** để chuyển bước, **Xem kết quả terminal** để đối chiếu nhật ký, hoặc **In báo cáo** để lưu PDF. Trang mở trực tiếp từ ổ đĩa và dùng được ngoại tuyến.
+
+Để cập nhật báo cáo sau khi sửa dữ liệu mẫu, chạy `py -3 chay_demo.py --html` trên Windows hoặc `python3 chay_demo.py --html` trên Kali tại thư mục này. Thêm `--buoc 3` để lưu riêng kết quả bắt tay vào `Ket-qua-buoc-3.html`.
+
 Để trình diễn ngay bảy bước bằng dữ liệu có sẵn, mở terminal tại thư mục này và chạy `py -3 chay_demo.py` trên Windows hoặc `python3 chay_demo.py` trên Kali. Nhấn Enter để chuyển bước. Thêm `--buoc 3` để tập riêng phần bắt tay hoặc `--auto` để chạy liên tục. [Kịch bản thuyết trình và tám hình minh họa](../Huong-dan-trinh-dien.md)
 
 Tại sao cùng một tên mạng lại xuất hiện với nhiều BSSID? Có thể kết luận gì khi chỉ thấy ba trong bốn nhãn thông điệp của một phiên xác lập khóa? Bài thực hành dùng các tệp mẫu Campus-Lab để trả lời hai câu hỏi này và so sánh cấu hình trước, sau khắc phục. Chương 5 của báo cáo trình bày cách diễn giải kết quả. Tài liệu mã nguồn cung cấp bản mã và giải thích theo dòng. [Báo cáo](../Bao-cao.md) · [Mã nguồn có chú giải](../Code-demo.md)

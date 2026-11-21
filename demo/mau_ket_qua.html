@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Campus-Lab · Kết quả phân tích Wi-Fi</title>
+<style>
+:root{--ink:#142f36;--muted:#506468;--line:#d2dedb;--green:#006a56;--paper:#f4f7f5;--dark:#0e3839;--cream:#fff4d9}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.52 "Inter","Segoe UI",Arial,sans-serif}a{color:var(--green)}
+.wrap{max-width:1330px;margin:0 auto;padding-inline:clamp(18px,4vw,58px)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #097f9e;outline-offset:3px}
+.skip{position:absolute;top:-80px;left:1rem;padding:.7rem;background:white;z-index:4}.skip:focus{top:5px}
+.mast{background:#0e3435;color:#fff;position:relative;overflow:hidden;border-bottom:4px solid #8fd5ad}
+.mast:after{content:"";pointer-events:none;position:absolute;right:-175px;bottom:-470px;width:760px;height:760px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 49px,rgba(163,220,193,.105) 50px 51px,transparent 52px 83px)}
+.mast .wrap{position:relative;z-index:1}.masttop{display:flex;align-items:center;justify-content:space-between;padding-top:23px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:720;font-size:20px;letter-spacing:-.6px}.logo{display:flex;align-items:flex-end;gap:3px;width:27px;height:23px}.logo i{width:6px;background:#a9e5c4;transform:skewY(-13deg);border-radius:1px}.logo i:nth-child(1){height:8px}.logo i:nth-child(2){height:15px}.logo i:nth-child(3){height:22px}
+.print, .pager button{font:inherit;cursor:pointer;border-radius:6px;line-height:1.4;padding:8px 15px;font-size:14px;font-weight:650}.print{border:1px solid #6f9891;color:white;background:#174847}
+.print:hover{background:#24605a}h1{margin:19px 0 4px;letter-spacing:-.045em;font-size:clamp(34px,4.3vw,60px);line-height:1.17;font-weight:680}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 15px;margin:10px 0 0;padding:0 0 25px;color:#d6e9e2;font-size:14px}.meta span:first-child:before{content:"";display:inline-block;border-radius:50%;background:#a0e5bc;height:8px;width:8px;margin-right:8px}.meta code{color:#eef9f4}
+code,pre,.index,.eyebrow{font-family:"IBM Plex Mono","Cascadia Code",Consolas,monospace}code{font-size:.93em}
+.layout{display:grid;grid-template-columns:224px minmax(0,1fr);gap:clamp(20px,3vw,46px);align-items:start;padding-top:27px}
+nav{position:sticky;top:14px}nav h2{font-size:14px;color:var(--muted);font-weight:600;margin:3px 0 11px}
+nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:6px;color:#354a4c;text-decoration:none;font-weight:600;line-height:1.4;margin-bottom:3px}
+nav a:hover{background:#e6efea}nav a[aria-current="step"]{background:#d7ebe0;color:#084d3a;box-shadow:inset 3px 0 #17775c}
+.index{font-size:12px;color:#4a635c;font-weight:600}main{min-width:0}h2,h3,p{margin:0}
+.step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:clamp(19px,2.5vw,35px);margin-bottom:14px;scroll-margin:12px}
+.eyebrow{font-size:12px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.stephead h2{font-size:clamp(27px,3vw,43px);letter-spacing:-.04em;line-height:1.17;margin:5px 0 7px}
+.stephead p,.session p,.profile p{color:var(--muted)}.stephead{margin-bottom:20px}
+.finding{border-left:3px solid #8ab89d;padding:5px 12px;margin-top:16px;font-size:14px;color:#425952}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 21px;background:#eef5f0;border-radius:7px;padding:15px 1px}
+.metrics div{display:flex;flex-direction:column-reverse;padding:0 clamp(10px,2vw,25px);border-right:1px solid #cadbd1}.metrics div:last-child{border:0}
+.metrics dd{margin:0;font-size:clamp(27px,3vw,42px);color:#174f3f;font-weight:650;line-height:1.05;font-variant-numeric:tabular-nums}.metrics dt{margin-top:6px;font-size:14px;color:#3a594c;line-height:1.25}
+.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:15px;text-align:left}th{background:#f2f5f3;color:var(--muted);font-size:13px;font-weight:650;padding:9px 11px}td{padding:13px 11px;border-bottom:1px solid #e0e8e3;vertical-align:middle;overflow-wrap:anywhere}td code{white-space:nowrap}td:has(.signal){white-space:nowrap}
+.tag{display:inline-block;font-size:13px;font-weight:650;line-height:1.4;padding:3px 8px;border-radius:4px;background:#edf1ef;color:#365157}
+.amber{background:#fff0cb;color:#77460b}.teal{background:#dff2e7;color:#11533b}.blue{background:#e5eef7;color:#234d73}
+.signal{display:inline-flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}.signal meter{width:42px;height:9px;background:#dce6e2;border:0;border-radius:9px}
+meter::-webkit-meter-bar{background:#dce6e2;border:0}meter::-webkit-meter-optimum-value{background:#347967;border-radius:9px}meter::-moz-meter-bar{background:#347967}
+.session,.profile{padding:16px 18px;border:1px solid var(--line);border-radius:7px}.session+.session{margin-top:12px}.sessionhead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.session h3,.profile h3{font-size:19px;letter-spacing:-.02em}.sessionhead>span:not(.tag){font-size:14px;color:#445e57}.session p,.profile p{font-size:15px;margin-top:7px}
+.sequence,.times{display:flex;gap:14px 18px;margin:12px 0 8px;list-style:none;padding:0;flex-wrap:wrap;align-items:center}
+.sequence li{position:relative;background:#e0f0e7;border:1px solid #a8cdb8;border-radius:5px;color:#134d38;padding:6px 13px;font-family:Consolas,monospace;font-weight:700}
+.sequence li+li:before{content:"›";position:absolute;left:-13px;color:#6c8077}.sequence .repeat{background:#fff0cb;border-color:#d9b778;color:#72450e}
+.times{gap:5px}.times li{display:flex;flex-direction:column;border-left:2px solid #85ad9e;background:#f1f6f2;padding:5px 12px}.times code{font-size:12px;color:var(--muted)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:13px}.profile{background:#fafcfb}.profile h3{margin-bottom:12px}
+details{margin-top:20px;border-top:1px solid var(--line);padding-top:12px}summary{cursor:pointer;width:fit-content;color:var(--green);font-size:14px;font-weight:650}pre{color:#e4f3ea;background:#112e32;padding:16px 18px;border-radius:6px;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;margin-bottom:0}pre b{color:#a9e5c4}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:5px}.pager output{color:var(--muted);font-size:14px}.pager button{border:1px solid #b8cbc1;background:white;color:#19443a}.pager button:last-child{background:#125848;color:white;border-color:#125848}.pager button:disabled{background:#e6ece8;color:#697974;border-color:#d6dfd9;cursor:default}
+footer{margin:26px auto 0;padding-bottom:20px;color:#52665c;font-size:12px}button[hidden], [hidden]{display:none}
+@media(max-width:900px){.layout{grid-template-columns:175px minmax(0,1fr);gap:17px}.wrap{padding-inline:18px}nav a{gap:8px;padding:9px}td,th{padding:9px 7px}.signal meter{display:none}}
+@media(max-width:700px){.layout{display:block;padding-top:12px}nav{position:static}nav h2{margin:0 0 4px}nav div{display:flex;gap:4px;overflow-x:auto;padding:1px 0 7px;margin:0 0 10px}nav a{flex:none;font-size:14px;border:1px solid var(--line)}.index{font-size:11px}.masttop{padding-top:14px}.meta{padding-bottom:17px;font-size:12px}.step{padding:16px 12px}.pair{grid-template-columns:1fr}.tablewrap table{min-width:490px}.stephead{margin-bottom:14px}.metrics dt{font-size:12px}}
+@media print{@page{size:A4;margin:1.5cm}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}body{background:white;color:black;font-size:11pt}.mast{background:white;color:#142f36;border-bottom:1px solid #688379}.mast:after,.logo,nav,.pager,.print,.skip{display:none!important}.wrap{padding:0;max-width:none}.masttop{padding:0}.meta,.meta code{color:#405650}.meta{padding-bottom:10px}.layout{display:block}.step,.step[hidden]{display:block!important;break-inside:auto;border:0;padding:10px 0;margin:0;border-radius:0}.step+.step{break-before:page}.stephead h2{font-size:25pt}.tablewrap{overflow:visible}.tablewrap table{min-width:0}.metrics,.session,.profile,tr{break-inside:avoid}details{display:none}footer{font-size:9pt}}
+</style></head>
+<body><a class="skip" href="#noi-dung">Đến nội dung</a>
+<header class="mast"><div class="wrap"><div class="masttop"><div class="brand"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>Campus-Lab</div>
+<button class="print" type="button" id="print" hidden>In báo cáo</button></div>
+<h1>Kết quả phân tích Wi-Fi</h1><p class="meta"><span>Dữ liệu mô phỏng · Ngoại tuyến</span><span>Nguồn <code>data/lab.json</code></span><span>$generated</span></p>
+</div></header>
+<div class="wrap layout"><nav aria-label="Các bước phân tích"><h2>Nội dung trình diễn</h2><div>$navigation</div></nav>
+<main id="noi-dung" tabindex="-1">$sections
+<div class="pager" id="pager" hidden><button type="button" id="prev">← Bước trước</button><output id="position" aria-live="polite"></output><button type="button" id="next">Bước sau →</button></div>
+</main></div><footer class="wrap">CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP</footer>
+<script>
+(() => {
+  const sections = Array.from(document.querySelectorAll('.step'));
+  const links = Array.from(document.querySelectorAll('nav a'));
+  const get = id => document.getElementById(id);
+  let current = -1;
+  function show() {
+    if (location.hash === '#noi-dung' && current >= 0) return;
+    const requested = sections.findIndex(section => '#' + section.id === location.hash);
+    const index = requested < 0 ? 0 : requested;
+    sections.forEach((section, i) => {
+      section.hidden = i !== index;
+      if (i === index) links[i].setAttribute('aria-current', 'step');
+      else links[i].removeAttribute('aria-current');
+    });
+    get('position').value = (index + 1) + ' / ' + sections.length;
+    get('prev').disabled = index === 0;
+    get('next').disabled = index === sections.length - 1;
+    if (current !== -1 && current !== index) {
+      sections[index].querySelector('h2').focus({preventScroll:true});
+      window.scrollTo(0,0);
+      if (matchMedia('(max-width:700px)').matches) links[index].parentElement.scrollLeft = links[index].offsetLeft - links[0].offsetLeft;
+    }
+    current = index;
+  }
+  function go(by) { if (sections[current+by]) location.hash=sections[current+by].id; }
+  get('prev').addEventListener('click', () => go(-1));
+  get('next').addEventListener('click', () => go(1));
+  document.addEventListener('keydown', event => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key==='ArrowLeft' || event.key==='ArrowRight') {
+      event.preventDefault(); go(event.key==='ArrowRight' ? 1 : -1);
+    }
+  });
+  get('print').hidden=false;
+  get('print').addEventListener('click',()=>window.print());
+  get('pager').hidden=sections.length<2;
+  window.addEventListener('hashchange',show);
+  show();
+})();
+</script></body></html>
