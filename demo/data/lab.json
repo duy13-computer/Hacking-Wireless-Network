@@ -1,0 +1,27 @@
+{
+  "aps": [
+    {"ssid":"Campus-Lab","bssid":"02:00:00:00:00:01","channel":1,"encryption":"WPA2-PSK","signal_dbm":-57},
+    {"ssid":"Campus-Lab","bssid":"02:00:00:00:00:02","channel":6,"encryption":"WPA2-PSK","signal_dbm":-64},
+    {"ssid":"Campus-Lab","bssid":"02:00:00:00:00:03","channel":11,"encryption":"Open","signal_dbm":-43}
+  ],
+  "authorized_bssids": ["02:00:00:00:00:01","02:00:00:00:00:02"],
+  "sessions": {"S1":["M1","M2","M3","M4"], "S2":["M1","M2","M2","M4"]},
+  "disconnects": [
+    {"id":"E01","bssid":"02:00:00:00:00:01","second":48},
+    {"id":"E02","bssid":"02:00:00:00:00:01","second":52},
+    {"id":"E03","bssid":"02:00:00:00:00:01","second":56},
+    {"id":"E02","bssid":"02:00:00:00:00:01","second":52},
+    {"id":"E04","bssid":"02:00:00:00:00:01","second":62},
+    {"id":"E05","bssid":"02:00:00:00:00:01","second":66},
+    {"id":"E06","bssid":"02:00:00:00:00:02","second":52},
+    {"id":"E07","bssid":"02:00:00:00:00:02","second":121}
+  ],
+  "profiles": {
+    "before": {"mode":"WPA2-Personal","pairwise":"CCMP","pmf":"optional","wps":"pin","default_credentials":null,"hidden_ssid":false,"passphrase_origin":"human","passphrase_length":12},
+    "after": {"mode":"WPA3-Personal","pairwise":"CCMP","pmf":"required","wps":"off","default_credentials":false,"hidden_ssid":false,"passphrase_origin":"random","passphrase_length":20}
+  },
+  "wpa2_examples": [
+    {"mode":"WPA2-Personal","passphrase_origin":"human","passphrase_length":12},
+    {"mode":"WPA2-Personal","passphrase_origin":"random","passphrase_length":20}
+  ]
+}

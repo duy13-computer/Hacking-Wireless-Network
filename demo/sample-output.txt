@@ -1,0 +1,85 @@
+Campus-Lab • Nhật ký chạy bộ mẫu
+Python trên Windows và Git Bash. Tín hiệu và sự kiện lấy từ tệp mẫu. Đường dẫn thư mục mẫu rút gọn thành ./data khi xuất hiện.
+
+$ python wifi_scanner.py
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+SSID | BSSID | Kênh | Bảo vệ quảng bá | Tín hiệu (dBm)
+'Campus-Lab' | 02:00:00:00:00:01 | 1 | WPA2-PSK | -57
+'Campus-Lab' | 02:00:00:00:00:02 | 6 | WPA2-PSK | -64
+'Campus-Lab' | 02:00:00:00:00:03 | 11 | Open | -43
+Số hàng BSS trong mẫu: 3
+
+$ python wifi_scanner.py --pcap data/beacons.pcap
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+SSID | BSSID | Kênh | Bảo vệ quảng bá | Tín hiệu (dBm)
+'Campus-Lab' | 02:00:00:00:00:01 | 1 | WPA2-PSK | -57
+'Campus-Lab' | 02:00:00:00:00:02 | 6 | WPA2-PSK | -64
+'Campus-Lab' | 02:00:00:00:00:03 | 11 | Open | -43
+Số hàng BSS trong mẫu: 3
+
+$ python evil_twin_detector.py
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+02:00:00:00:00:01 | 'Campus-Lab' | Có trong danh mục.
+02:00:00:00:00:02 | 'Campus-Lab' | Có trong danh mục.
+02:00:00:00:00:03 | 'Campus-Lab' | ỨNG VIÊN trùng SSID, BSSID ngoài danh mục. Chế độ 'Open' khác ['WPA2-PSK'].
+
+$ python handshake_review.py
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+S1 | M1 → M2 → M3 → M4
+  Thiếu: không
+  Lặp: không
+  Đủ bốn nhãn theo thứ tự quan sát.
+S2 | M1 → M2 → M2 → M4
+  Thiếu: M3
+  Lặp: M2 ×2
+  Chưa quan sát đủ bốn nhãn.
+Bản ghi mô tả nhãn sự kiện. Xác thực thành công cần nguồn xác nhận độc lập.
+
+$ python deauth_detector.py
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+02:00:00:00:00:01 | CẢNH BÁO cụm ngắt kết nối | 5 sự kiện | giây 48–66
+02:00:00:00:00:02 | Dưới ngưỡng | 1 sự kiện | giây 52–52
+Đối chiếu lịch bảo trì, chuyển vùng và PMF để xác minh nguyên nhân.
+
+$ python wps_audit.py
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+before | WPS | KHÔNG ĐẠT — hồ sơ cho phép đăng ký bằng PIN ngoài.
+after | WPS | ĐẠT — hồ sơ khai báo đã tắt WPS.
+Kiểm chứng ngoài mô hình cần đối chiếu cấu hình đang chạy tại AP.
+
+$ bash wpa2_policy_check.sh
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+Mẫu 1 | 12 ký tự | nguồn human | KHÔNG ĐẠT
+Mẫu 2 | 20 ký tự | nguồn random | ĐẠT
+Tiêu chí minh họa: tối thiểu 20 ký tự và nguồn sinh ngẫu nhiên theo hồ sơ.
+
+$ python defense_check.py
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+Quyền root POSIX: không áp dụng trên hệ điều hành này.
+before | hồ sơ khai báo
+  Chế độ WPA2-Personal | chưa đạt mục tiêu WPA3 của lab
+  PMF | tùy chọn
+  WPS | KHÔNG ĐẠT — hồ sơ cho phép đăng ký bằng PIN ngoài.
+  SSID | quảng bá | thông tin hiển thị
+  Thông tin quản trị mặc định | CHƯA XÁC ĐỊNH
+after | hồ sơ khai báo
+  Chế độ WPA3-Personal | đạt mục tiêu lab
+  PMF | bắt buộc
+  WPS | ĐẠT — hồ sơ khai báo đã tắt WPS.
+  SSID | quảng bá | thông tin hiển thị
+  Thông tin quản trị mặc định | đã đổi theo hồ sơ
+Kết luận chỉ áp dụng cho dữ liệu khai báo trong hai hồ sơ.
+
+$ bash monitor_status.sh
+CHỈ SỬ DỤNG TRONG MÔI TRƯỜNG LAB ĐƯỢC PHÉP
+UID hiện tại 197609. Bài đọc trạng thái không yêu cầu root.
+Nguồn: tệp ngoại tuyến ./data/iw-dev.txt
+wlan-lab0 | managed
+mon-lab0 | monitor

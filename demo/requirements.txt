@@ -1,0 +1,2 @@
+# Thư viện chỉ cần khi đọc beacon từ tệp PCAP ngoại tuyến.
+scapy==2.6.1

@@ -1,0 +1,8 @@
+phy#0
+	Interface wlan-lab0
+		ifindex 4
+		type managed
+phy#1
+	Interface mon-lab0
+		ifindex 5
+		type monitor
